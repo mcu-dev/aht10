@@ -32,7 +32,24 @@
  */
 
 int8_t aht10_write_register_value(uint8_t dev_addr, uint8_t *data_buffer) {
-  return i2c_write_bytes(dev_addr, data_buffer);
+  return i2c_write_byte(dev_addr, data_buffer);
+}
+
+/**
+ * @brief Write a register value from the BMP180.
+ *
+ * @param dev_addr The register address to write the value from.
+ * @param data_buffer Pointer to the buffer containing the data to be written.
+ *
+ * @return
+ *   - 0 on success.
+ *   - Non-zero error code on failure.
+ */
+
+int8_t aht10_multiple_write_register_value(uint8_t dev_addr,
+                                           uint8_t *data_buffer,
+                                           uint32_t bytecount) {
+  return i2c_write_multiple_bytes(dev_addr, data_buffer, bytecount);
 }
 
 /**
@@ -46,8 +63,7 @@ int8_t aht10_write_register_value(uint8_t dev_addr, uint8_t *data_buffer) {
  *   - Non-zero error code on failure.
  */
 int8_t aht10_read_register_value(uint8_t address, uint8_t *val) {
-  if (i2c_read_byte(AHT10_I2C_ADDRESS, address, val) !=
-      AHT10_STATUS_SUCCESS) {
+  if (i2c_read_byte(AHT10_I2C_ADDRESS, address, val) != AHT10_STATUS_SUCCESS) {
     return AHT10_STATUS_API_ERR;
   }
   return AHT10_STATUS_SUCCESS;
