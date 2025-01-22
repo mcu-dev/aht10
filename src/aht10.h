@@ -53,6 +53,10 @@ typedef struct {
 
 int8_t aht10_write_register_value(uint8_t dev_addr, uint8_t *data_buffer);
 
+int8_t aht10_multiple_write_register_value(uint8_t dev_addr,
+                                           uint8_t *data_buffer,
+                                           uint32_t bytecount);
+
 int8_t aht10_read_register_value(uint8_t address, uint8_t *val);
 
 int8_t aht10_setup(aht10_dev *device, aht10_init_param init_param);
